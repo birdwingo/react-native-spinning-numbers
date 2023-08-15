@@ -1,5 +1,10 @@
 # @birdwingo/react-native-spinning-numbers
 
+![npm downloads](https://img.shields.io/npm/dm/%40birdwingo/react-native-spinning-numbers)
+![npm version](https://img.shields.io/npm/v/%40birdwingo/react-native-spinning-numbers)
+![github release](https://github.com/birdwingo/react-native-spinning-numbers/actions/workflows/release.yml/badge.svg?event=pull_request)
+![npm release](https://github.com/birdwingo/react-native-spinning-numbers/actions/workflows/public.yml/badge.svg?event=release)
+
 ## About
 
 `react-native-spinning-numbers` is a customizable and animated component that offers a highly captivating way to display numerical values within your React Native application. This component combines an elegant visual effect of rotating numbers with the ability to dynamically change values, adding interactivity and intrigue to your user interfaces. It is used in the [Birdwingo mobile app](https://www.birdwingo.com) to show portfolio values and market prices changing in the real time.
@@ -21,7 +26,6 @@ To use the `SpinningNumbers` component, you need to import it in your React Nati
 import React, { useState } from 'react';
 import { View, Text } from 'react-native';
 import SpinningNumbers from '@birdwingo/react-native-spinning-numbers';
-
 
 const YourComponent = () => {
 
