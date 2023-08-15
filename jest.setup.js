@@ -2,6 +2,7 @@
 jest.mock('react-native-reanimated', () => {
 
   const View = require('react-native').View;
+  const Text = require('react-native').Text;
 
   return {
     Value: jest.fn(),
@@ -12,6 +13,7 @@ jest.mock('react-native-reanimated', () => {
     cond: jest.fn(),
     interpolate: jest.fn(),
     View: (props) => <View {...props} />,
+    Text: (props) => <Text {...props} />,
     createAnimatedComponent: (cb) => cb,
     Extrapolate: { CLAMP: jest.fn() },
     Transition: {
@@ -19,7 +21,7 @@ jest.mock('react-native-reanimated', () => {
       Out: 'Out',
       In: 'In',
     },
-    useSharedValue: jest.fn(),
+    useSharedValue: (a) => ({ value: a }),
     useDerivedValue: (a) => ({ value: a() }),
     useAnimatedScrollHandler: () => () => {},
     useAnimatedGestureHandler: () => () => {},

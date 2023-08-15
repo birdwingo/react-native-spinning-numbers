@@ -1,5 +1,5 @@
 import React, {
-  FC, ReactNode, useEffect, useState, memo,
+  FC, ReactNode, useEffect, useState, memo, useRef,
 } from 'react';
 import { Text, View } from 'react-native';
 import { childrenToText, createNumericAnimation } from '../../core/helpers';
@@ -39,9 +39,9 @@ const SpinningNumbers: FC<SpinningNumbersProps> = ( {
     writingDirection,
   };
 
-  const [ animated, setAnimated ] = useState( false );
-  const [ measured, setMeasured ] = useState( false );
   const [ animation, setAnimation ] = useState( createNumericAnimation( '', childrenToText( children ) ) );
+
+  const measured = useRef( false );
 
   useEffect( () => {
 
@@ -53,7 +53,6 @@ const SpinningNumbers: FC<SpinningNumbersProps> = ( {
     if ( currentAnimation.changed ) {
 
       setAnimation( currentAnimation );
-      setAnimated( animation.animable );
 
     }
 
@@ -62,23 +61,25 @@ const SpinningNumbers: FC<SpinningNumbersProps> = ( {
   useEffect( () => {
 
     setAnimation( createNumericAnimation( '', childrenToText( children ) ) );
-    setAnimated( false );
-    setMeasured( false );
 
   }, [] );
 
   const measurementsToRender: ReactNode[] = [];
 
-  if ( animated && !measured ) {
+  if ( !measured.current ) {
 
-    Promise.all( `${CHARS_TO_MEASURE}${extendCharacters}`.split( '' ).map( ( c ) => TextMeasurment.measure( c, style, measurementsToRender ) ) ).then( () => setMeasured( true ) );
+    Promise.all( `${CHARS_TO_MEASURE}${extendCharacters}`.split( '' ).map( ( c ) => TextMeasurment.measure( c, style, measurementsToRender ) ) ).then( () => {
+
+      measured.current = true;
+
+    } );
 
   }
 
   return (
     <View style={[ layoutStyles, { height: style.lineHeight }, SpinningNumbersStyles.container ]} testID="spinningContainer">
       {parentheses && <Text style={textStyles}>(</Text>}
-      { animated && measured
+      { animation.animable && measured.current
         ? (
           <>
             { animation.presign && (

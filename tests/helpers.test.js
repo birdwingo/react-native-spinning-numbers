@@ -1,3 +1,4 @@
+
 import { fontHash, decimals } from '../src/core/helpers';
 
 describe( 'fontHash helper test', () => {

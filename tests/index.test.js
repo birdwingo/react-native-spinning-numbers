@@ -1,16 +1,18 @@
 /* eslint-disable no-undef */
-import { render } from '@testing-library/react-native';
+import { act, render } from '@testing-library/react-native';
 import SpinningNumbers from '../src';
 import { CHARS_TO_MEASURE } from '../src/core/constants';
+import { TextMeasurment } from '../src/components/TextMeasurment';
+import { AnimatedText } from '../src/components/Animated';
 
 const sleep = async () => new Promise( ( resolve ) => setTimeout( resolve, 250 ) );
 
 describe( 'Spinning numbers test', () => {
 
-  it( 'Should be correct text', () => {
+  it( 'Should be correct text with parentheses', () => {
 
     const text = '14,578';
-    const { getByTestId, rerender } = render( <SpinningNumbers>{text}</SpinningNumbers> );
+    const { getByTestId } = render( <SpinningNumbers parentheses>{text}</SpinningNumbers> );
     expect( getByTestId( 'spinningContainer' ) ).toHaveTextContent( text );
 
   } );
@@ -135,13 +137,77 @@ describe( 'Spinning numbers test', () => {
     expect( getByTestId( 'spinningContainer' ) ).toHaveTextContent( text2 );
 
   } );
+  
+  it( 'Should measure chars', async () => {
+
+    const text = '-71,895';
+    const { getByTestId, rerender } = render( <SpinningNumbers>{text}</SpinningNumbers> );
+    
+    act(() => {
+      
+      CHARS_TO_MEASURE.split('').forEach( ( char ) => {
+  
+        getByTestId(`${char}MeasureText`).props.onLayout( { nativeEvent: { layout: { width: 10, height: 10 } } } );
+        getByTestId(`${char}MeasureText5`).props.onLayout( { nativeEvent: { layout: { width: 50, height: 10 } } } );
+  
+      } );
+
+    })
+
+    await sleep();
+
+    const text2 = '+78,745'
+    rerender( <SpinningNumbers>{text2}</SpinningNumbers> );
+    expect( getByTestId( 'spinningContainer' ) ).toHaveTextContent('+ - + - 1 0 9 8 7 6 5 4 3 2 11 0 9 8 7 6 5 4 3 2 1');
+
+  } );
 
 } );
 
-// describe( 'Animated number test', () => {
+describe( 'TextMeasurment test', () => {
 
-//   it( 'Should render', async () => {
+  it( 'Should work with empty text', async () => {
 
-//   } );
+    const result = await TextMeasurment.measure( '' );
 
-// } );
+    expect( result ).toEqual( { text: '', width: 0, height: 20 } );
+
+  } );
+
+  it( 'Should return mesured value if exists', async () => {
+
+    const result = await TextMeasurment.measure( 'A', {}, [] );
+    expect( result ).toEqual( { text: 'A', width: 9.8, height: 10 } );
+
+  } );
+
+
+} );
+
+describe('AnimatedText test', () => {
+
+  it('Should work with empty text', async () => {
+
+    const { getByTestId } = render( <AnimatedText from={''} to={'A'} duration={500} style={{}} /> );
+
+    expect( getByTestId( 'animatedText' ) ).toHaveTextContent('A');
+
+  });
+  
+  it('Should work from text to empty text', async () => {
+
+    const { getByTestId } = render( <AnimatedText from={'A'} to={''} duration={500} style={{}} /> );
+
+    expect( getByTestId( 'animatedText' ) ).toHaveTextContent('A');
+
+  });
+  
+  it('Should work if text is not measured', async () => {
+
+    const { getByTestId } = render( <AnimatedText from={'>'} to={';'} duration={500} style={{}} /> );
+
+    expect( getByTestId( 'animatedText' ) ).toHaveTextContent('>');
+
+  });
+
+})

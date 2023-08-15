@@ -34,29 +34,16 @@ const AnimatedText: FC<AnimatedTextProps> = ( {
 
   useEffect( () => {
 
-    if ( previousText && ( previousText !== currentText ) ) {
+    if ( from !== to ) {
+
+      setPreviousText( from );
+      setCurrentText( to );
 
       animate();
 
     }
 
-  }, [] );
-
-  useEffect(
-    () => {
-
-      if ( from !== to ) {
-
-        setPreviousText( from );
-        setCurrentText( to );
-
-        animate();
-
-      }
-
-    },
-    [ from, to, duration, delay ],
-  );
+  }, [ from, to, duration, delay ] );
 
   const previousWidth = previousText.split( '' ).map( ( value ) => TextMeasurment.get( value, style )?.width ?? 0 ).reduce( ( a, b ) => a + b, 0 );
   const currentWidth = currentText.split( '' ).map( ( value ) => TextMeasurment.get( value, style )?.width ?? 0 ).reduce( ( a, b ) => a + b, 0 );
@@ -69,11 +56,13 @@ const AnimatedText: FC<AnimatedTextProps> = ( {
       },
       AnimatedStyles.overflowVisible ]}
     >
-      <Animated.Text style={[
-        style,
-        { textAlign: align, width: currentWidth },
-        animatedStyles,
-        AnimatedStyles.text ]}
+      <Animated.Text
+        testID="animatedText"
+        style={[
+          style,
+          { textAlign: align, width: currentWidth },
+          animatedStyles,
+          AnimatedStyles.text ]}
       >
         {[ previousText, currentText ].join( '\n' ).trim()}
       </Animated.Text>
