@@ -1,0 +1,77 @@
+{
+  "name": "@birdwingo/react-native-spinning-numbers",
+  "version": "1.0.0",
+  "description": "The component offers a highly customizable and captivating way to display numerical values within your React Native application. This component combines an elegant visual effect of rotating numbers with the ability to dynamically change values, adding interactivity and intrigue to your user interfaces.",
+  "main": "src/index.tsx",
+  "source": "src/index.tsx",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "release": "standard-version",
+    "test": "jest --coverage"
+  },
+  "repository": "https://github.com/birdwingo/react-native-spinning-numbers.git",
+  "keywords": [
+    "react-native",
+    "android",
+    "ios",
+    "react",
+    "react-native-reanimated",
+    "reanimated",
+    "animated",
+    "animation",
+    "performance",
+    "numbers",
+    "spinning",
+    "spinning-numbers",
+    "animated-numbers"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/birdwingo/react-native-spinning-numbers/issues"
+  },
+  "homepage": "https://github.com/birdwingo/react-native-spinning-numbers#readme",
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-native": ">=0.70.0",
+    "react-native-reanimated": ">=2.12.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.22.9",
+    "@babel/preset-typescript": "^7.22.5",
+    "@commitlint/cli": "^17.6.7",
+    "@commitlint/config-conventional": "^17.6.7",
+    "@testing-library/jest-native": "^5.4.2",
+    "@testing-library/react-native": "^12.1.3",
+    "@tsconfig/react-native": "^3.0.0",
+    "@types/jest": "^29.5.3",
+    "@types/react": "^18.2.16",
+    "eslint": "^8.19.0",
+    "eslint-config-airbnb": "^19.0.2",
+    "eslint-config-airbnb-typescript": "^16.1.0",
+    "husky": "^8.0.3",
+    "jest": "^29.6.2",
+    "react-test-renderer": "^18.2.0",
+    "standard-version": "^9.5.0",
+    "typescript": "^5.1.6"
+  },
+  "jest": {
+    "preset": "react-native",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "testMatch": [
+      "<rootDir>/tests/*.test.js"
+    ],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect",
+      "<rootDir>/jest.setup.js"
+    ],
+    "verbose": true
+  }
+}
