@@ -62,15 +62,7 @@ export class TextMeasurment {
 
           this.cache.get( hash ).set( text, value );
 
-          if ( promiseResolve ) {
-
-            promiseResolve( value );
-
-          } else {
-
-            setTimeout( () => promiseResolve( value ), 1 );
-
-          }
+          promiseResolve?.( value );
 
         }
 
