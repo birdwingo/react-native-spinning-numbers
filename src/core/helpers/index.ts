@@ -132,6 +132,13 @@ export const createNumericAnimation = ( previous: string, current: string ) => {
 
           }
 
+          if ( animation.prefix.from !== animation.prefix.to
+            || animation.suffix.from !== animation.suffix.to ) {
+
+            animation.animable = false;
+
+          }
+
         } else {
 
           animation.animable = false;

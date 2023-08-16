@@ -39,7 +39,6 @@ const SpinningNumbers: FC<SpinningNumbersProps> = ( {
     writingDirection,
   };
 
-  const [ animable, setAnimable ] = useState( false );
   const [ animation, setAnimation ] = useState( createNumericAnimation( '', childrenToText( children ) ) );
 
   const measured = useRef( false );
@@ -53,7 +52,6 @@ const SpinningNumbers: FC<SpinningNumbersProps> = ( {
 
     if ( currentAnimation.changed ) {
 
-      setAnimable( animation.animable );
       setAnimation( currentAnimation );
 
     }
@@ -62,7 +60,6 @@ const SpinningNumbers: FC<SpinningNumbersProps> = ( {
 
   useEffect( () => {
 
-    setAnimable( false );
     setAnimation( createNumericAnimation( '', childrenToText( children ) ) );
 
   }, deps );
@@ -82,7 +79,7 @@ const SpinningNumbers: FC<SpinningNumbersProps> = ( {
   return (
     <View style={[ layoutStyles, { height: style.lineHeight }, SpinningNumbersStyles.container ]} testID="spinningContainer">
       {parentheses && <Text style={textStyles}>(</Text>}
-      { animable && measured.current
+      { animation.animable && measured.current
         ? (
           <>
             { animation.presign && (
