@@ -56,6 +56,7 @@ export default YourComponent;
  `duration`              | number                        | 1000                    | Duration of the animation in ms
  `parentheses`           | boolean                       | false                   | Whether to show parentheses around text
  `extendCharacters`      | string                        | ''                      | A string of characters that could appear in your text. You do not need to use it if your text contains only basic alphabetic characters, numbers or the following characters: `,.-+$%€!?&@#*`
+ `deps`                  | any[]                         | []                      | An array of dependencies for useEffect, when those dependencies changed, text will be changed without animation
 
 ## Sponsor
 

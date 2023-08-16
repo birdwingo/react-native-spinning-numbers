@@ -12,7 +12,7 @@ import {
 import { CHARS_TO_MEASURE, DURATION } from '../../core/constants';
 
 const SpinningNumbers: FC<SpinningNumbersProps> = ( {
-  children, style = {}, duration = DURATION, parentheses = false, extendCharacters = '',
+  children, style = {}, duration = DURATION, parentheses = false, extendCharacters = '', deps = [],
 } ) => {
 
   const {
@@ -39,6 +39,7 @@ const SpinningNumbers: FC<SpinningNumbersProps> = ( {
     writingDirection,
   };
 
+  const [ animable, setAnimable ] = useState( false );
   const [ animation, setAnimation ] = useState( createNumericAnimation( '', childrenToText( children ) ) );
 
   const measured = useRef( false );
@@ -52,6 +53,7 @@ const SpinningNumbers: FC<SpinningNumbersProps> = ( {
 
     if ( currentAnimation.changed ) {
 
+      setAnimable( animation.animable );
       setAnimation( currentAnimation );
 
     }
@@ -60,9 +62,10 @@ const SpinningNumbers: FC<SpinningNumbersProps> = ( {
 
   useEffect( () => {
 
+    setAnimable( false );
     setAnimation( createNumericAnimation( '', childrenToText( children ) ) );
 
-  }, [] );
+  }, deps );
 
   const measurementsToRender: ReactNode[] = [];
 
@@ -79,7 +82,7 @@ const SpinningNumbers: FC<SpinningNumbersProps> = ( {
   return (
     <View style={[ layoutStyles, { height: style.lineHeight }, SpinningNumbersStyles.container ]} testID="spinningContainer">
       {parentheses && <Text style={textStyles}>(</Text>}
-      { animation.animable && measured.current
+      { animable && measured.current
         ? (
           <>
             { animation.presign && (

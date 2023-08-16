@@ -5,5 +5,6 @@ export interface SpinningNumbersProps {
   style?: ViewProps & TextStyle
   duration?: number,
   parentheses?: boolean,
-  extendCharacters?: string
+  extendCharacters?: string,
+  deps?: any[],
 }
