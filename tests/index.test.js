@@ -139,6 +139,17 @@ describe( 'Spinning numbers test', () => {
 
   } );
 
+  it( 'Should work when prefix changed to suffix', () => {
+
+    const text = '$10';
+    const { getByTestId, rerender } = render( <SpinningNumbers>{text}</SpinningNumbers> );
+
+    const text2 = '10€';
+    rerender( <SpinningNumbers>{text2}</SpinningNumbers> );
+    expect( getByTestId( 'spinningContainer' ) ).toHaveTextContent( text2 );
+
+  } );
+
   it( 'Should measure chars', async () => {
 
     const text = '-71,895';
