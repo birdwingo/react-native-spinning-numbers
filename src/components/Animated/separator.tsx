@@ -18,12 +18,14 @@ const AnimatedSeparator: FC<AnimatedSeparatorProps> = ( { separator, style } ) =
       { height: style.lineHeight, width: TextMeasurment.get( separator, style ).width },
       AnimatedStyles.overflowVisible ]}
     >
-      <Animated.Text style={[
-        style,
-        { width: TextMeasurment.get( separator, style ).width },
-        animatedStyles,
-        AnimatedStyles.separator,
-      ]}
+      <Animated.Text
+        style={[
+          style,
+          { width: TextMeasurment.get( separator, style ).width },
+          animatedStyles,
+          AnimatedStyles.separator,
+        ]}
+        allowFontScaling={false}
       >
         {separator}
       </Animated.Text>

@@ -16,8 +16,8 @@ const SpinningNumbers: FC<SpinningNumbersProps> = ( {
 } ) => {
 
   const {
-    color, fontFamily, fontSize, fontStyle, fontWeight,
-    fontVariant, letterSpacing, lineHeight, textAlign, textShadowColor,
+    color, fontFamily = '', fontSize = 34, fontStyle, fontWeight,
+    fontVariant, letterSpacing, lineHeight = 40, textAlign, textShadowColor,
     textShadowOffset, textShadowRadius, textTransform, writingDirection,
     ...layoutStyles
   } = style;
@@ -68,7 +68,7 @@ const SpinningNumbers: FC<SpinningNumbersProps> = ( {
 
   if ( !measured.current ) {
 
-    Promise.all( `${CHARS_TO_MEASURE}${extendCharacters}`.split( '' ).map( ( c ) => TextMeasurment.measure( c, style, measurementsToRender ) ) ).then( () => {
+    Promise.all( `${CHARS_TO_MEASURE}${extendCharacters}`.split( '' ).map( ( c ) => TextMeasurment.measure( c, textStyles, measurementsToRender ) ) ).then( () => {
 
       measured.current = true;
 
@@ -77,7 +77,7 @@ const SpinningNumbers: FC<SpinningNumbersProps> = ( {
   }
 
   return (
-    <View style={[ layoutStyles, { height: style.lineHeight }, SpinningNumbersStyles.container ]} testID="spinningContainer">
+    <View style={[ layoutStyles, { height: textStyles.lineHeight }, SpinningNumbersStyles.container ]} testID="spinningContainer">
       {parentheses && <Text style={textStyles}>(</Text>}
       { animation.animable && measured.current
         ? (
@@ -113,7 +113,7 @@ const SpinningNumbers: FC<SpinningNumbersProps> = ( {
             { animation.suffix && <AnimatedText from={animation.suffix.from} to={animation.suffix.to} align="right" style={textStyles} duration={duration} />}
           </>
         )
-        : <Text style={style}>{ animation.text.current }</Text>}
+        : <Text style={[ textStyles, layoutStyles ]}>{ animation.text.current }</Text>}
       {parentheses && <Text style={textStyles}>)</Text>}
       { measurementsToRender }
     </View>

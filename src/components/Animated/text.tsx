@@ -63,6 +63,7 @@ const AnimatedText: FC<AnimatedTextProps> = ( {
           { textAlign: align, width: currentWidth },
           animatedStyles,
           AnimatedStyles.text ]}
+        allowFontScaling={false}
       >
         {[ previousText, currentText ].join( '\n' ).trim()}
       </Animated.Text>
