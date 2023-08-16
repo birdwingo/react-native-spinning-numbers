@@ -28,7 +28,7 @@ const AnimatedNumber: FC<AnimatedNumberProps> = ( {
 
     return {
       width: index === Math.round( index )
-        ? ( measurements[index] || 0 )
+        ? ( measurements[index] )
         : ( measurements[roundedCeil] || 0 ) * ( index - roundedFloor )
       + ( measurements[roundedFloor] || 0 ) * ( roundedCeil - index ),
       index,
@@ -59,7 +59,7 @@ const AnimatedNumber: FC<AnimatedNumberProps> = ( {
   }, [ from, to, duration ] );
 
   return (
-    <Animated.View style={[ { height: style.lineHeight, width: TextMeasurment.get( '1', style ).width }, animatedStyles2, AnimatedStyles.overflowVisible ]}>
+    <Animated.View style={[ { height: style.lineHeight, width: TextMeasurment.get( '1', style ).width }, animatedStyles2, AnimatedStyles.overflowVisible ]} testID="animatedNumber">
       <Animated.Text style={[ style, { width }, animatedStyles, AnimatedStyles.sign ]}>
         {NUMBERS}
       </Animated.Text>

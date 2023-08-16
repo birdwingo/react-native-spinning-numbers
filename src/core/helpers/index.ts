@@ -58,22 +58,11 @@ export const createNumericAnimation = ( previous: string, current: string ) => {
       if ( dec.from !== dec.to ) {
 
         decimalSeparator = undefined;
-
-        if ( !(
-          ( dec.from === undefined && ths.from === ths.to && dec.to === ths.to )
-          || ( dec.to === undefined && ths.from === ths.to && dec.from === ths.from ) ) ) {
-
-          animation.animable = false;
-
-        }
+        animation.animable = false;
 
       } else if ( ths.from !== ths.to ) {
 
-        if ( ths.from !== undefined && ths.to !== undefined ) {
-
-          thousandsSeparator = ths.from === decimalSeparator ? ths.to : ths.from;
-
-        } else if ( thousandsSeparator === decimalSeparator ) {
+        if ( thousandsSeparator === decimalSeparator ) {
 
           thousandsSeparator = undefined;
 
@@ -92,16 +81,7 @@ export const createNumericAnimation = ( previous: string, current: string ) => {
           || countChars( format.current.value, decimalSeparator ) > 1
         ) ) {
 
-          if ( thousandsSeparator === undefined ) {
-
-            thousandsSeparator = decimalSeparator;
-            decimalSeparator = undefined;
-
-          } else {
-
-            animation.animable = false;
-
-          }
+          animation.animable = false;
 
         }
 
