@@ -35,9 +35,9 @@ const AnimatedSign: FC<AnimatedSignProps> = ( {
     const roundedCeil = Math.ceil( index.value );
 
     return index.value === Math.round( index.value )
-      ? ( measurements[index.value] || 0 )
+      ? ( measurements[index.value] )
       : ( measurements[roundedCeil] || 0 ) * ( index.value - roundedFloor )
-      + ( measurements[roundedFloor] || 0 ) * ( roundedCeil - index.value );
+      + ( measurements[roundedFloor] ) * ( roundedCeil - index.value );
 
   } );
 
@@ -66,7 +66,7 @@ const AnimatedSign: FC<AnimatedSignProps> = ( {
   }, [ from, to, duration ] );
 
   return (
-    <Animated.View style={[ { height: style.lineHeight, width: TextMeasurment.get( '+', style ).width }, animatedStyles2, AnimatedStyles.overflowVisible ]}>
+    <Animated.View style={[ { height: style.lineHeight, width: TextMeasurment.get( '+', style ).width }, animatedStyles2, AnimatedStyles.overflowVisible ]} testID="animatedSign">
       <Animated.Text style={[ style, { width }, animatedStyles, AnimatedStyles.sign ]}>
         {SIGNS}
       </Animated.Text>

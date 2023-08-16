@@ -21,7 +21,7 @@ jest.mock('react-native-reanimated', () => {
       Out: 'Out',
       In: 'In',
     },
-    useSharedValue: (a) => ({ value: a }),
+    useSharedValue: jest.fn(),
     useDerivedValue: (a) => ({ value: a() }),
     useAnimatedScrollHandler: () => () => {},
     useAnimatedGestureHandler: () => () => {},

@@ -1,11 +1,12 @@
-/* eslint-disable no-undef */
 import { act, render } from '@testing-library/react-native';
+import * as Reanimated from 'react-native-reanimated';
 import SpinningNumbers from '../src';
 import { CHARS_TO_MEASURE } from '../src/core/constants';
 import { TextMeasurment } from '../src/components/TextMeasurment';
-import { AnimatedText } from '../src/components/Animated';
+import { AnimatedNumber, AnimatedSign, AnimatedText } from '../src/components/Animated';
 
 const sleep = async () => new Promise( ( resolve ) => setTimeout( resolve, 250 ) );
+jest.spyOn( Reanimated, 'useSharedValue' ).mockImplementation( ( value ) => ( { value } ) );
 
 describe( 'Spinning numbers test', () => {
 
@@ -127,7 +128,7 @@ describe( 'Spinning numbers test', () => {
 
   } );
 
-  it( 'Should work without weird char', () => {
+  it( 'Should work with weird char', () => {
 
     const text = '-71';
     const { getByTestId, rerender } = render( <SpinningNumbers>{text}</SpinningNumbers> );
@@ -137,28 +138,28 @@ describe( 'Spinning numbers test', () => {
     expect( getByTestId( 'spinningContainer' ) ).toHaveTextContent( text2 );
 
   } );
-  
+
   it( 'Should measure chars', async () => {
 
     const text = '-71,895';
     const { getByTestId, rerender } = render( <SpinningNumbers>{text}</SpinningNumbers> );
-    
-    act(() => {
-      
-      CHARS_TO_MEASURE.split('').forEach( ( char ) => {
-  
-        getByTestId(`${char}MeasureText`).props.onLayout( { nativeEvent: { layout: { width: 10, height: 10 } } } );
-        getByTestId(`${char}MeasureText5`).props.onLayout( { nativeEvent: { layout: { width: 50, height: 10 } } } );
-  
+
+    act( () => {
+
+      CHARS_TO_MEASURE.split( '' ).forEach( ( char ) => {
+
+        getByTestId( `${char}MeasureText` ).props.onLayout( { nativeEvent: { layout: { width: 10, height: 10 } } } );
+        getByTestId( `${char}MeasureText5` ).props.onLayout( { nativeEvent: { layout: { width: 50, height: 10 } } } );
+
       } );
 
-    })
+    } );
 
     await sleep();
 
-    const text2 = '+78,745'
+    const text2 = '+78,745';
     rerender( <SpinningNumbers>{text2}</SpinningNumbers> );
-    expect( getByTestId( 'spinningContainer' ) ).toHaveTextContent('+ - + - 1 0 9 8 7 6 5 4 3 2 11 0 9 8 7 6 5 4 3 2 1');
+    expect( getByTestId( 'spinningContainer' ) ).toHaveTextContent( '+ - + - 1 0 9 8 7 6 5 4 3 2 11 0 9 8 7 6 5 4 3 2 1' );
 
   } );
 
@@ -181,33 +182,66 @@ describe( 'TextMeasurment test', () => {
 
   } );
 
+} );
+
+describe( 'AnimatedText test', () => {
+
+  it( 'Should work with empty text', async () => {
+
+    const { getByTestId } = render( <AnimatedText from="" to="A" duration={500} style={{}} /> );
+
+    expect( getByTestId( 'animatedText' ) ).toHaveTextContent( 'A' );
+
+  } );
+
+  it( 'Should work from text to empty text', async () => {
+
+    const { getByTestId } = render( <AnimatedText from="A" to="" duration={500} style={{}} /> );
+
+    expect( getByTestId( 'animatedText' ) ).toHaveTextContent( 'A' );
+
+  } );
+
+  it( 'Should work if text is not measured', async () => {
+
+    const { getByTestId } = render( <AnimatedText from=">" to=";" duration={500} style={{}} /> );
+
+    expect( getByTestId( 'animatedText' ) ).toHaveTextContent( '>' );
+
+  } );
 
 } );
 
-describe('AnimatedText test', () => {
+describe( 'AnimatedNumber test', () => {
 
-  it('Should work with empty text', async () => {
+  it( 'Should work with default props', async () => {
 
-    const { getByTestId } = render( <AnimatedText from={''} to={'A'} duration={500} style={{}} /> );
+    const { getByTestId } = render( <AnimatedNumber duration={500} style={{}} /> );
 
-    expect( getByTestId( 'animatedText' ) ).toHaveTextContent('A');
+    expect( getByTestId( 'animatedNumber' ) ).toHaveTextContent( '0' );
 
-  });
-  
-  it('Should work from text to empty text', async () => {
+  } );
 
-    const { getByTestId } = render( <AnimatedText from={'A'} to={''} duration={500} style={{}} /> );
+} );
 
-    expect( getByTestId( 'animatedText' ) ).toHaveTextContent('A');
+describe( 'AnimatedSign test', () => {
 
-  });
-  
-  it('Should work if text is not measured', async () => {
+  it( 'Should work with animation', async () => {
 
-    const { getByTestId } = render( <AnimatedText from={'>'} to={';'} duration={500} style={{}} /> );
+    jest.spyOn( Reanimated, 'useSharedValue' ).mockImplementation( ( value ) => ( { value: typeof value === 'number' ? 0.5 : value } ) );
+    const { getByTestId } = render( <AnimatedSign from="-" to="+" duration={500} style={{}} /> );
 
-    expect( getByTestId( 'animatedText' ) ).toHaveTextContent('>');
+    expect( getByTestId( 'animatedSign' ) ).toHaveTextContent( '+' );
 
-  });
+  } );
 
-})
+  it( 'Should work with incorrect sign', async () => {
+
+    jest.spyOn( Reanimated, 'useSharedValue' ).mockImplementation( ( value ) => ( { value: typeof value === 'number' ? 0.2 : value } ) );
+    const { getByTestId } = render( <AnimatedSign from="1" to="+" duration={500} style={{}} /> );
+
+    expect( getByTestId( 'animatedSign' ) ).toHaveTextContent( '+' );
+
+  } );
+
+} );
