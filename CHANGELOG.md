@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.0.3 (2023-08-16)
+
+
+### Bug Fixes
+
+* allowFontScaling to false ([55afb86](https://github.com/birdwingo/react-native-spinning-numbers/commit/55afb8691fadcd540c0c9902893650d4f2ac21dd))
+
 ### 1.0.2 (2023-08-16)
 
 
