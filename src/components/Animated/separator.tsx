@@ -14,9 +14,11 @@ const AnimatedSeparator: FC<AnimatedSeparatorProps> = ( { separator, style } ) =
   } ) );
 
   return (
-    <View style={[
-      { height: style.lineHeight, width: TextMeasurment.get( separator, style ).width },
-      AnimatedStyles.overflowVisible ]}
+    <View
+      style={[
+        { height: style.lineHeight, width: TextMeasurment.get( separator, style ).width },
+        AnimatedStyles.overflowVisible ]}
+      testID="animatedSeparator"
     >
       <Animated.Text
         style={[
