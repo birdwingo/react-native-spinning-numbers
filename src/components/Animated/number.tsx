@@ -60,7 +60,10 @@ const AnimatedNumber: FC<AnimatedNumberProps> = ( {
 
   return (
     <Animated.View style={[ { height: style.lineHeight, width: TextMeasurment.get( '1', style ).width }, animatedStyles2, AnimatedStyles.overflowVisible ]} testID="animatedNumber">
-      <Animated.Text style={[ style, { width }, animatedStyles, AnimatedStyles.sign ]}>
+      <Animated.Text
+        style={[ style, { width }, animatedStyles, AnimatedStyles.sign ]}
+        allowFontScaling={false}
+      >
         {NUMBERS}
       </Animated.Text>
     </Animated.View>

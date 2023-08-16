@@ -67,7 +67,10 @@ const AnimatedSign: FC<AnimatedSignProps> = ( {
 
   return (
     <Animated.View style={[ { height: style.lineHeight, width: TextMeasurment.get( '+', style ).width }, animatedStyles2, AnimatedStyles.overflowVisible ]} testID="animatedSign">
-      <Animated.Text style={[ style, { width }, animatedStyles, AnimatedStyles.sign ]}>
+      <Animated.Text
+        style={[ style, { width }, animatedStyles, AnimatedStyles.sign ]}
+        allowFontScaling={false}
+      >
         {SIGNS}
       </Animated.Text>
     </Animated.View>
