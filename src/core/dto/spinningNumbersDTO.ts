@@ -7,4 +7,5 @@ export interface SpinningNumbersProps {
   parentheses?: boolean,
   extendCharacters?: string,
   deps?: any[],
+  autoMeasure?: boolean,
 }

@@ -12,7 +12,7 @@ import {
 import { CHARS_TO_MEASURE, DURATION } from '../../core/constants';
 
 const SpinningNumbers: FC<SpinningNumbersProps> = ( {
-  children, style = {}, duration = DURATION, parentheses = false, extendCharacters = '', deps = [],
+  children, style = {}, duration = DURATION, parentheses = false, extendCharacters = '', deps = [], autoMeasure = false,
 } ) => {
 
   const {
@@ -66,7 +66,7 @@ const SpinningNumbers: FC<SpinningNumbersProps> = ( {
 
   const measurementsToRender: ReactNode[] = [];
 
-  if ( !measured.current ) {
+  if ( ( animation.animable || autoMeasure ) && !measured.current ) {
 
     Promise.all( `${CHARS_TO_MEASURE}${extendCharacters}`.split( '' ).map( ( c ) => TextMeasurment.measure( c, textStyles, measurementsToRender ) ) ).then( () => {
 

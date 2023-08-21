@@ -8,6 +8,8 @@ import { AnimatedNumber, AnimatedSeparator, AnimatedSign, AnimatedText } from '.
 const sleep = async () => new Promise( ( resolve ) => setTimeout( resolve, 250 ) );
 jest.spyOn( Reanimated, 'useSharedValue' ).mockImplementation( ( value ) => ( { value } ) );
 
+SpinningNumbers.defaultProps = { autoMeasure: true };
+
 const style = { fontFamily: '', fontSize: 34 };
 
 describe( 'Spinning numbers test', () => {
@@ -151,8 +153,24 @@ describe( 'Spinning numbers test', () => {
     expect( getByTestId( 'spinningContainer' ) ).toHaveTextContent( text2 );
 
   } );
+  
+  it( 'Should work with no defaultProps', () => {
+
+    SpinningNumbers.defaultProps = {};
+
+    const text = '$10';
+    const { getByTestId, rerender } = render( <SpinningNumbers>{text}</SpinningNumbers> );
+
+    const text2 = '10€';
+    rerender( <SpinningNumbers>{text2}</SpinningNumbers> );
+    expect( getByTestId( 'spinningContainer' ) ).toHaveTextContent( text2 );
+
+  } );
+
 
   it( 'Should measure chars', async () => {
+
+    SpinningNumbers.defaultProps = { autoMeasure: true };
 
     const text = '-71,895';
     const { getByTestId, rerender } = render( <SpinningNumbers>{text}</SpinningNumbers> );
