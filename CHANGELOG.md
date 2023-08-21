@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.0.5 (2023-08-21)
+
+
+### Bug Fixes
+
+* auto measure ([6378466](https://github.com/birdwingo/react-native-spinning-numbers/commit/6378466f7257f83a770fa1b55215577b790286b4))
+
 ### 1.0.4 (2023-08-16)
 
 ### 1.0.3 (2023-08-16)
