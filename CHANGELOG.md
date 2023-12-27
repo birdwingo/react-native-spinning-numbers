@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 1.0.7 (2023-12-27)
+
+
+### Bug Fixes
+
+* translateX is NaN ([148d27d](https://github.com/birdwingo/react-native-spinning-numbers/commit/148d27d73e0bb1ff1e8ac50f5ca8126a9c3b1bc8))
+
 ### 1.0.6 (2023-12-27)
 
 ### 1.0.5 (2023-08-21)

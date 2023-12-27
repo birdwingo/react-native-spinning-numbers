@@ -1,6 +1,6 @@
 {
   "name": "@birdwingo/react-native-spinning-numbers",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "The component offers a highly customizable and captivating way to display numerical values within your React Native application. This component combines an elegant visual effect of rotating numbers with the ability to dynamically change values, adding interactivity and intrigue to your user interfaces.",
   "main": "src/index.tsx",
   "source": "src/index.tsx",
