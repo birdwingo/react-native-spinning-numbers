@@ -43,8 +43,8 @@ const AnimatedSign: FC<AnimatedSignProps> = ( {
 
   const animatedStyles = useAnimatedStyle( () => ( {
     transform: [
-      { translateY: -index.value * ( style.lineHeight ?? 0 ) },
-      { translateX: ( chartWidth.value - width ) / 2 } ],
+      { translateY: ( -index.value * ( style.lineHeight ?? 0 ) ) ?? 0 },
+      { translateX: ( ( chartWidth.value - width ) / 2 ) ?? 0 } ],
   } ) );
 
   const animatedStyles2 = useAnimatedStyle( () => ( {
