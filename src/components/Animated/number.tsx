@@ -38,8 +38,8 @@ const AnimatedNumber: FC<AnimatedNumberProps> = ( {
 
   const animatedStyles = useAnimatedStyle( () => ( {
     transform: [
-      { translateY: ( -chartWidth.value.index * ( style.lineHeight ?? 0 ) ) ?? 0 },
-      { translateX: ( ( chartWidth.value.width - width ) / 2 ) ?? 0 } ],
+      { translateY: ( -chartWidth.value.index * ( style.lineHeight ?? 0 ) ) || 0 },
+      { translateX: ( ( chartWidth.value.width - width ) / 2 ) || 0 } ],
   } ) );
 
   const animatedStyles2 = useAnimatedStyle( () => ( {
