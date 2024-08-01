@@ -64,6 +64,12 @@ const SpinningNumbers: FC<SpinningNumbersProps> = ( {
 
   }, deps );
 
+  useEffect( () => {
+
+    measured.current = false;
+
+  }, [ fontSize, fontFamily, fontWeight ] );
+
   const measurementsToRender: ReactNode[] = [];
 
   if ( ( animation.animable || autoMeasure ) && !measured.current ) {
