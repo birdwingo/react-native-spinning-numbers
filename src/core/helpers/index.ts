@@ -58,7 +58,7 @@ export const createNumericAnimation = ( previous: string, current: string ) => {
       if ( dec.from !== dec.to ) {
 
         decimalSeparator = undefined;
-        animation.animable = false;
+        animation.animable = true;
 
       } else if ( ths.from !== ths.to ) {
 
@@ -92,8 +92,7 @@ export const createNumericAnimation = ( previous: string, current: string ) => {
         const previousValue = format.previous.value.replaceAll( thousandsSeparator!, '' ).replace( decimalSeparator!, '.' );
         const currentValue = format.current.value.replaceAll( thousandsSeparator!, '' ).replace( decimalSeparator!, '.' );
 
-        if ( NUMBER_RE.test( previousValue ) && NUMBER_RE.test( currentValue )
-          && fractions( previousValue ) === fractions( currentValue ) ) {
+        if ( NUMBER_RE.test( previousValue ) && NUMBER_RE.test( currentValue ) ) {
 
           animation.separator = { decimal: decimalSeparator, thousands: thousandsSeparator };
           animation.presign = { from: format.previous.presign, to: format.current.presign };
