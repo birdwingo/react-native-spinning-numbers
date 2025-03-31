@@ -37,6 +37,7 @@ const AnimatedNumber: FC<AnimatedNumberProps> = ( {
   } );
 
   const animatedStyles = useAnimatedStyle( () => ( {
+    width: withTiming( width, { duration: 200 } ),
     transform: [
       { translateY: ( -chartWidth.value.index * ( style.lineHeight ?? 0 ) ) || 0 },
       { translateX: ( ( chartWidth.value.width - width ) / 2 ) || 0 } ],
@@ -59,9 +60,9 @@ const AnimatedNumber: FC<AnimatedNumberProps> = ( {
   }, [ from, to, duration ] );
 
   return (
-    <Animated.View style={[ { height: style.lineHeight, width: TextMeasurment.get( '1', style ).width }, animatedStyles2, AnimatedStyles.overflowVisible ]} testID="animatedNumber">
+    <Animated.View style={[ { height: style.lineHeight, width: withTiming( TextMeasurment.get( '1', style ).width, { duration: 200 } ) }, animatedStyles2, AnimatedStyles.overflowVisible ]} testID="animatedNumber">
       <Animated.Text
-        style={[ style, { width }, animatedStyles, AnimatedStyles.sign ]}
+        style={[ style, animatedStyles, AnimatedStyles.sign ]}
         allowFontScaling={false}
       >
         {NUMBERS}
